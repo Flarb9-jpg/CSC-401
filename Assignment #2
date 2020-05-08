@@ -1,0 +1,435 @@
+<!Doctype html>
+<html>
+  <title>Assignment 2</title>
+  <body>
+    <h2><u>Assignment 2</u></h2>
+    <h3><i>By: Ross Pierson</i></h3>
+    <a href="index.html">Go Back</a>
+    <form id="form">
+  Choose an amount of numbers to sort (Do not hit enter): <input type="number" \
+name="sorter" id="choice" max="500" min="0"><br>
+</form>
+<button type="button" id="InsertionSort" onclick="insertionSort()">Insertion So\
+rt</button>
+<button type="button" id="QuickSort"  onclick="quickSort()">Quick Sort</button>
+<button type="button" id="BubbleSort" onclick="bubbleSort()">Bubble Sort</butto\
+n>
+<button type="button" id="MergeSort" onclick="mergeSort()">Merge Sort</button>
+<p id="unsorted"></p>
+<p id="insertion"></p>
+<p id="insertionCount"></p>
+<p id="quick"></p>
+<p id="quickCount"></p>
+<p id="bubble"></p>
+<p id="bubbleCount"></p>
+<p id="merge"></p>
+<p id="mergeCount"></p>
+<p> For this project of comparing each sorting algorithm, overall it seems that\
+ each one worked as expected, following each time complexity of expected or bet\
+ter since I used a simple array of completely random integer values from 1 - 10\
+00. With each computed average of the performance of input sizes ranging from 5\
+0 to 500 in intervals 0f 50, it seems that each algorithm holds almost no devia\
+tion to their time complexity equation. This is shown how Quicksort and Mergeso\
+rt both have a best and expected time of (n log n) and followed closely to this\
+ value, and Insertion Sort and Bubble Sort did do as expected, which is nowhere\
+ close in speed and number of comparisons with a theta(n^2) expected running ti\
+me. Furthermore this can be visually seen with the table and the corresponding \
+graph of Sorting Algorithm Performance below, where Bubble Sort and Insertion S\
+ort increase exponentially very closely together, and practically go off the ch\
+art where the Merge and Quick sorting algorithms hardly make a difference. Furt\
+hermore, in the next graph each equation of best fit is compared, zoomed in to \
+only include the first 5000 comparisons to highlight the differences between ea\
+ch algorithm, and it shows how each equation was able to be matched up very clo\
+sely to its equivalent time complexity. Even though Quicksort and Mergesort hav\
+e the same expected running time, I found out that through all 20 runs of each \
+input size and ultimately the average case, that Mergesort always did consisten\
+tly better, however if I was measuring their space complexity as well then I wo\
+uld say that Quicksort would have been the better choice with O(log(n)) compare\
+d to O(n) space. However for insertion and Bubble Sort, it was a constant battl\
+e of the least number of comparisons, with an overall weaving pattern it seems \
+Bubble Sort took the overall victory. Even taking space complexity into conside\
+ration both of these algorithms seem evenly matched, so overall in conclusion I\
+ would say Merge Sort is the best sorting algorithm out of these four choices d\
+ue to its consistency of an O(n log n) run time for its best, average, and wors\
+t case scenarios.</p>
+<table style="width:100%">
+<tr>
+<th>Input Size</th>
+<th>Insertion Sort</th>
+<th>Bubble Sort</th>
+<th>Quick Sort</th>
+<th>Merge Sort</th>
+</tr>
+<tr>
+    <td>50</td>
+    <td>647</td>
+    <td>639</td>
+    <td>271</td>
+    <td>219</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>2531</td>
+    <td>2483</td>
+    <td>655</td>
+    <td>538</td>
+  </tr>
+  <tr>
+    <td>150</td>
+    <td>5763</td>
+    <td>5676</td>
+    <td>1108</td>
+    <td>900</td>
+  </tr>
+  <tr>
+    <td>200</td>
+    <td>10429</td>
+    <td>9860</td>
+    <td>1616</td>
+    <td>1283</td>
+  </tr>
+  <tr>
+    <td>250</td>
+    <td>15558</td>
+    <td>15724</td>
+    <td>1958</td>
+    <td>1678</td>
+  </tr>
+  <tr>
+    <td>300</td>
+    <td>22346</td>
+    <td>22490</td>
+    <td>2534</td>
+    <td>2095</td>
+  </tr>
+  <tr>
+    <td>350</td>
+    <td>31194</td>
+    <td>29305</td>
+    <td>3002</td>
+    <td>2533</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>40014</td>
+    <td>40698</td>
+    <td>3562</td>
+    <td>2957</td>
+  </tr>
+  <tr>
+    <td>450</td>
+    <td>49817</td>
+    <td>49994</td>
+    <td>4251</td>
+    <td>3406</td>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td>63029</td>
+    <td>62025</td>
+    <td>4665</td>
+    <td>3845</td>
+  </tr>
+</table>
+<script>
+  function insertionSort()
+{
+  var input = document.getElementById("choice").value;
+  var comparisons = 0;
+  var arr = Array(Number(input));
+  for (var k = 0; k < arr.length; k++)
+  {
+    arr[k] = Math.floor(Math.random() * 1000);
+  }
+  if (arr.length < 16)
+  {
+    document.getElementById("unsorted").innerHTML ="Unsorted Array: " + arr;
+  }
+  var i;
+  var j;
+  var temp;
+  for (i = 1; i < arr.length; i++)
+  {
+      j = i;
+      comparisons++;
+      while ((j > 0) && (arr[j - 1] > arr[j]))
+      {
+            if(arr[j-1] > arr[j])
+            {
+              comparisons++;
+            }
+        temp = arr[j - 1];
+        arr[j - 1] = arr[j];
+        arr[j] = temp;
+        j--;
+      }
+  }
+  if (arr.length < 16)
+  {
+    document.getElementById("insertion").innerHTML ="Insertion Sort: " + arr;
+  }
+  document.getElementById("insertionCount").innerHTML ="Insertion Count: " + co\
+mparisons;
+}
+
+var count = 0;
+function mergeSort()
+{
+  var input = document.getElementById("choice").value;
+  var arr = Array(Number(input));
+  for (var k = 0; k < arr.length; k++)
+  {
+    arr[k] = Math.floor(Math.random() * 1000);
+  }
+  if (arr.length < 16)
+  {
+    document.getElementById("unsorted").innerHTML ="Unsorted Array: " + arr;
+  }
+  arr = mergeSort2(arr);
+  if (arr.length < 16)
+  {
+  document.getElementById("merge").innerHTML ="Merge Sorted: " + arr;
+  }
+  document.getElementById("mergeCount").innerHTML ="Merge Count: " + count;
+  count = 0;
+}
+
+function mergeSort2(arr)
+{
+  if (arr.length <= 1)
+  {
+    return arr;
+  }
+  const middle = Math.floor(arr.length / 2);
+  const left = arr.slice(0, middle);
+  const right = arr.slice(middle);
+  return merge(mergeSort2(left), mergeSort2(right));
+}
+
+function merge(left, right)
+{
+  let resultArray = [], leftIndex = 0, rightIndex = 0;
+  while (leftIndex < left.length && rightIndex < right.length)
+  {
+    if (left[leftIndex] < right[rightIndex])
+    {
+      count++;
+      resultArray.push(left[leftIndex]);
+      leftIndex++;
+    }
+    else
+    {
+      count++;
+      resultArray.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+  return resultArray.concat(left.slice(leftIndex)).concat(right.slice(rightInde\
+x));
+}
+
+//Bubble Sort
+function bubbleSort()
+{
+  var input = document.getElementById("choice").value;
+  var comparisons = 0;
+  var arr = Array(Number(input));
+  for (var k = 0; k < arr.length; k++)
+  {
+    arr[k] = Math.floor(Math.random() * 1000);
+  }
+  if (arr.length < 16)
+  {
+    document.getElementById("unsorted").innerHTML ="Unsorted Array: " + arr;
+  }
+    for (var i=0; i < arr.length; i++){
+        for (var j=0; j < arr.length - i; j++){
+            if (arr[j] > arr[j+1])
+            {
+              comparisons++;
+                var temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+    if (arr.length < 16)
+    {
+      document.getElementById("bubble").innerHTML ="Bubble Sort: " + arr;
+    }
+    document.getElementById("bubbleCount").innerHTML ="Bubble Count: " + compar\
+isons;
+}
+
+var count2 = 0;
+//Quick sort
+function quickSort()
+{
+  var input = document.getElementById("choice").value;
+  var arr = Array(Number(input));
+  for (var k = 0; k < arr.length; k++)
+  {
+    arr[k] = Math.floor(Math.random() * 1000);
+  }
+  if (arr.length < 16)
+  {
+    document.getElementById("unsorted").innerHTML ="Unsorted Array: " + arr;
+  }
+  arr = quickSort2(arr, count);
+  if (arr.length < 16)
+  {
+    document.getElementById("quick").innerHTML ="Quick Sorted: " + arr;
+  }
+  document.getElementById("quickCount").innerHTML ="Quick Count: " + count2;
+  count2 = 0;
+}
+
+function quickSort2(arr, count)
+{
+  if (arr.length <= 1)
+  {
+    return arr;
+  }
+  else
+  {
+    var left = [];
+    var right = [];
+    var newArray = [];
+    var pivot = arr.pop();
+    var length = arr.length;
+    for (var i = 0; i < length; i++)
+    {
+      if (arr[i] <= pivot)
+      {
+        count2++;
+        left.push(arr[i]);
+      } else
+      {
+        count2++;
+        right.push(arr[i]);
+      }
+    }
+    return newArray.concat(quickSort2(left, count), pivot, quickSort2(right, co\
+unt));
+  }
+}
+</script>
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+title: {
+text: "Sorting Algorithm Performance"
+},
+axisX2: {
+title: "Input Size"
+},
+axisY2: {
+title: "Average Number of Comparisons"
+},
+toolTip: {
+shared: true
+},
+legend: {
+cursor: "pointer",
+verticalAlign: "top",
+horizontalAlign: "center",
+dockInsidePlotArea: true,
+itemclick: toogleDataSeries
+},
+data: [{
+type:"line",
+axisYType: "secondary",
+name: "Bubble Sort",
+showInLegend: true,
+markerSize: 0,
+dataPoints: [
+{ x: 50, y: 639 },
+{ x: 100, y: 2483 },
+{ x: 150, y: 5676 },
+{ x: 200, y: 9860 },
+{ x: 250, y: 15724 },
+{ x: 300, y: 22490 },
+{ x: 350, y: 29305 },
+{ x: 400, y: 40698 },
+{ x: 450, y: 49994 },
+{ x: 500, y: 62025 }
+]
+},
+{
+type: "line",
+axisYType: "secondary",
+name: "Insertion Sort",
+showInLegend: true,
+markerSize: 0,
+dataPoints: [
+{ x: 50, y: 647 },
+{ x: 100, y: 2531 },
+{ x: 150, y: 5763 },
+{ x: 200, y: 10429 },
+{ x: 250, y: 15558 },
+{ x: 300, y: 22346 },
+{ x: 350, y: 31194 },
+{ x: 400, y: 40014 },
+{ x: 450, y: 49817 },
+{ x: 500, y: 63029 }
+]
+},
+{
+type: "line",
+axisYType: "secondary",
+name: "Merge Sort",
+showInLegend: true,
+markerSize: 0,
+dataPoints: [
+{ x: 50, y: 219 },
+{ x: 100, y: 538 },
+{ x: 150, y: 900 },
+{ x: 200, y: 1283 },
+{ x: 250, y: 1678 },
+{ x: 300, y: 2095 },
+{ x: 350, y: 2533 },
+{ x: 400, y: 2957 },
+{ x: 450, y: 3406 },
+{ x: 500, y: 3845 },
+]
+},
+{
+type: "line",
+axisYType: "secondary",
+name: "Quick Sort",
+showInLegend: true,
+markerSize: 0,
+dataPoints: [
+{ x: 50, y: 271 },
+{ x: 100, y: 655 },
+{ x: 150, y: 1108 },
+{ x: 200, y: 1616},
+{ x: 250, y: 1958 },
+{ x: 300, y: 2534 },
+{ x: 350, y: 3002 },
+{ x: 400, y: 3562 },
+{ x: 450, y: 4251 },
+{ x: 500, y: 4665 }
+]
+}]
+});
+chart.render();
+
+function toogleDataSeries(e){
+if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+e.dataSeries.visible = false;
+} else{
+e.dataSeries.visible = true;
+}
+chart.render();
+}
+
+}
+</script>
+<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<img src="https://i.imgur.com/MYROsJZ.png" title="The lines of best fit for eac\
+h algorithm"width="1080" height="600" />
+  </body>
+</html>
